@@ -32,7 +32,7 @@ public class Vista extends JFrame {
 	private JButton botonCerrar;
 	private JFileChooser fileChooser;
 	private Border border;
-	
+ 	
 	private Token token;
 	private JTable tablaSimbolosEntrada;
 	private JScrollPane scrollPaneEntrada;
@@ -149,7 +149,7 @@ public class Vista extends JFrame {
 		this.tablaSimbolosEntrada.setEnabled(false);
 		this.tablaSimbolosSalida.setEnabled(false);
 		
-		this.contenedor.setBackground(new Color(238,248,255));
+		this.contenedor.setBackground(new Color(218,225,255));
 		
 	}
 	

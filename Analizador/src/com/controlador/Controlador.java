@@ -20,41 +20,33 @@ public class Controlador implements ActionListener {
 
 	//@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		if (e.getActionCommand().equals("cargar"))
+	
+		if (e.getActionCommand().equals("cargar")){
 			cargar();
-		else if (e.getActionCommand().equals("analizar"))
+		}else if (e.getActionCommand().equals("analizar")){
 			analizar();
-		else if (e.getActionCommand().equals("salir"))
+		}else if (e.getActionCommand().equals("salir")){
 			System.exit(0);
+		}
 	}
 	
-	public void cargar() {
+	public void cargar(){
 		FileManager lector = new FileManager();
 		JTextArea area = vista.getEntrada();
 		area.setText(lector.leeArchivo(vista));
 	}
-
-	public void analizar() {
+	
+	public void analizar(){
 		
-		//Si no	
-		if( !vista.getEntrada().getText().equals("") ){
-			
-			String programa = vista.getEntrada().getText();
-			
-			AnalisisLexico lexico = new AnalisisLexico(programa);
-			if( lexico.analizar() ){
-				vista.setDatosSimbolosSalida( lexico.getTabla() );
-				vista.setSalida( lexico.getAnalisis() );
-			}else{
-				JOptionPane.showMessageDialog(null, "Metodo Por Implementar.  ", 
-						"Error!!", JOptionPane.WARNING_MESSAGE);
-			}
-			
-		}else {
-			JOptionPane.showMessageDialog(null, "No se ha cargado o escrito ningun programa.  ", 
+		AnalisisLexico lexico = new AnalisisLexico();
+		if( lexico.analiza( vista.getEntrada().getText() ) ){
+			vista.setDatosSimbolosSalida( lexico.getTable() );
+			vista.setSalida( lexico.getAnalisis() );
+		}else{
+			JOptionPane.showMessageDialog(null, "Metodo Por Implementar.  ", 
 					"Error!!", JOptionPane.WARNING_MESSAGE);
 		}
+		
 	}
 	
 }
