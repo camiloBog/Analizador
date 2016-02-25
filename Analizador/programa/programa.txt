@@ -1,0 +1,11 @@
+programa sumar(){
+	
+	int a, b, c;
+	leer a;
+	leer b;
+	c=a+b;
+	
+	imprimir("la suma de",a,"+",b,"=",c);
+ 	
+ 	terminar;
+}
