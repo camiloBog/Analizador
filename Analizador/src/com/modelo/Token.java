@@ -64,8 +64,7 @@ public class Token {
 
 	private String indicador;
 
-	public Object[][] datos;
-
+	
 	public Token() {
 
 		this.token1 = "programa";
@@ -133,10 +132,8 @@ public class Token {
 	}
 	
 	public String[] getTitle() {
-
 		String[] data = { "LEXEMA", "TOKEN", "INDICADOR" };
 		return data;
-
 	}
 
 	public Object[][] getTable() {
