@@ -60,5 +60,46 @@ public class FileManager {
 		
 	}
 	
+	public String leeArchivo(String url){
+		
+		String texto = "";
+		String aux = "";
+
+		File file = new File(url);
+		FileReader fileReader = null;
+		BufferedReader buffer = null;
+
+		try {
+			
+			fileReader = new FileReader(file);
+			buffer = new BufferedReader(fileReader);
+			
+			if (file != null) {
+				
+				fileReader = new FileReader(file);
+				buffer = new BufferedReader(fileReader);
+				
+				while ((aux = buffer.readLine()) != null)
+					texto += aux + "\r\n";
+								
+			}
+			
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "No se encontro el archivo.", "Error!!", JOptionPane.WARNING_MESSAGE);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Ocurrio un error al leer el archivo.", "Error!!", JOptionPane.WARNING_MESSAGE);
+		}finally{
+			
+			try {
+				buffer.close();
+				fileReader.close();
+			} catch (IOException e) {
+			}
+		}
+		
+		return texto;
+		
+	}
+	
 	
 }
