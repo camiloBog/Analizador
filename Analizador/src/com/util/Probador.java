@@ -19,16 +19,31 @@ public class Probador {
 			char ch[] = fuente.toCharArray();
 			
 			String palabra = "";
+			String texto = "";
 			boolean bandera = false;
 			
 			for (int i = 0; i < fuente.length(); i++) {
 				
 				String letra = String.valueOf(ch[i]);
 				
+				if(bandera){
+					texto += letra;
+				}else{
+					
+				}
+				
 				//Si es comillas cambia la bandera
-				if( letra.equals("\"") )
+				if( letra.equals("\"") ){
+					
+				}
 					bandera = !bandera;
 				
+				
+				
+				
+				
+				
+				/*
 				if(bandera){
 					palabra += letra;
 				} else if( automata.esSecuenciaDeEscape(letra) ){
@@ -46,6 +61,7 @@ public class Probador {
 				}else{
 					palabra += letra;
 				}
+				*/
 				
 			}
 
