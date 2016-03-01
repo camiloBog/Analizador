@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -25,6 +26,8 @@ public class Vista extends JFrame {
 	private Container contenedor;
 	private JTextArea entrada;
 	private JTextArea salida;
+	private JLabel labelIni;
+	private JLabel labelFin;
 	private JScrollPane scrollEntrada;
 	private JScrollPane scrollSalida;
 	private JButton botonCargar;
@@ -46,8 +49,8 @@ public class Vista extends JFrame {
 	private JScrollPane scrollPaneSalida;
 	private Object[][] datosSimbolosSalida;
 
-	private int x = 790;
-	private int y = 600;
+	private int ancho = 850;
+	private int alto = 600;
 
 	public Vista() {
 		crearVista();
@@ -76,16 +79,18 @@ public class Vista extends JFrame {
 		this.contenedor = getContentPane();
 		this.contenedor.setLayout(null);
 		this.entrada = new JTextArea();
-		this.botonCargar = new JButton();
-		this.botonAnalizar = new JButton();
 		this.fileChooser = new JFileChooser();
 		this.scrollEntrada = new JScrollPane();
 		this.control = new Controlador(this);
 		this.salida = new JTextArea();
 		this.scrollSalida = new JScrollPane();
+		this.labelIni = new JLabel();
+		this.labelFin = new JLabel();
 		this.botonCerrar = new JButton();
 		this.botonExportar = new JButton();
 		this.botonReset = new JButton();
+		this.botonCargar = new JButton();
+		this.botonAnalizar = new JButton();
 		this.token = new Token();
 		this.tituloSimbolos = token.getTitle();
 		this.datosSimbolosEntrada = token.getTable();
@@ -109,15 +114,23 @@ public class Vista extends JFrame {
 		this.contenedor.add(botonCerrar);
 		this.contenedor.add(botonExportar);
 		this.contenedor.add(botonReset);
+		this.contenedor.add(labelIni);
+		this.contenedor.add(labelFin);
 	}
 
 	private void configObjetos() {
 
 		this.setTitle("ANALIZADOR LEXICO");
-		this.setSize(x, y);
+		this.setSize(ancho, alto);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		this.labelIni.setText("Tabla de Simbolos (Inicial)");
+		this.labelIni.setBounds(20, 190, 370, 200);
+		
+		this.labelFin.setText("Tabla de Simbolos (Final)");
+		this.labelFin.setBounds(430, 190, 370, 200);
 		
 		this.botonCargar.setText("Cargar programa");
 		this.botonCargar.setBounds(20, 26, 200, 23);
@@ -128,15 +141,15 @@ public class Vista extends JFrame {
 		this.botonAnalizar.setActionCommand("analizar");
 		
 		this.botonCerrar.setText("Salir");
-		this.botonCerrar.setBounds(550, 500, 200, 23);
+		this.botonCerrar.setBounds(600, 500, 200, 23);
 		this.botonCerrar.setActionCommand("salir");
 		
 		this.botonExportar.setText("Exportar Programa");
-		this.botonExportar.setBounds(550, 26, 200, 23);
+		this.botonExportar.setBounds(600, 26, 200, 23);
 		this.botonExportar.setActionCommand("exportar");
 		
 		this.botonReset.setText("Reset Analizador");
-		this.botonReset.setBounds(550, 250, 200, 23);
+		this.botonReset.setBounds(600, 250, 200, 23);
 		this.botonReset.setActionCommand("reset");
 		
 		this.botonCargar.setEnabled(true);
@@ -153,16 +166,14 @@ public class Vista extends JFrame {
 		this.salida.setLineWrap(true);
 		this.salida.setWrapStyleWord(true);
 		this.salida.setEditable(false);
-		//this.salida.setEnabled(false);
-		//this.salida.setOpaque(false);
 		
-		this.scrollEntrada.setBounds(20, 50, 350, 200);
+		this.scrollEntrada.setBounds(20, 50, 370, 200);
 		this.scrollEntrada.setViewportView(entrada);
 		
-		this.scrollSalida.setBounds(400, 50, 350, 200);
+		this.scrollSalida.setBounds(430, 50, 370, 200);
 		this.scrollSalida.setViewportView(salida);
 		
-		this.scrollPaneEntrada.setBounds(20, 300, 350, 200);
+		this.scrollPaneEntrada.setBounds(20, 300, 370, 200);
 		this.scrollPaneEntrada.setEnabled(false);
 		this.scrollPaneEntrada.setBorder(border);
 		this.configScrollPaneSalida();
@@ -175,7 +186,7 @@ public class Vista extends JFrame {
 	}
 	
 	private void configScrollPaneSalida(){
-		this.scrollPaneSalida.setBounds(400, 300, 350, 200);
+		this.scrollPaneSalida.setBounds(430, 300, 370, 200);
 		this.scrollPaneSalida.setEnabled(false);
 		this.scrollPaneSalida.setBorder(border);
 	}
