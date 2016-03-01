@@ -31,7 +31,7 @@ public class FileManager {
 				fileWriter.write(salida);
 
 				JOptionPane.showMessageDialog(null,
-						"El archivo se a guardado Exitosamente", "Información",
+						"Se guardo exitosamente el archivo.", "Información",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 
