@@ -12,41 +12,81 @@ import com.vista.Vista;
 
 public class Controlador implements ActionListener {
 	
-	Vista vista;
+	private Vista vista;
 
 	public Controlador(Vista vista) {
 		this.vista = vista;
 	}
 
-	//@Override
 	public void actionPerformed(ActionEvent e) {
 	
 		if (e.getActionCommand().equals("cargar")){
 			cargar();
 		}else if (e.getActionCommand().equals("analizar")){
 			analizar();
+		}else if (e.getActionCommand().equals("exportar")){
+			exportar();
+		}else if (e.getActionCommand().equals("reset")){
+			this.vista.dispose();
+			this.vista = new Vista();
 		}else if (e.getActionCommand().equals("salir")){
 			System.exit(0);
 		}
+	}
+	
+	private void bloquearBotones(boolean cargar, boolean analizar, 
+			boolean exportar, boolean reset ){
+		this.vista.getBotonCargar().setEnabled(cargar);
+		this.vista.getBotonAnalizar().setEnabled(analizar);
+		this.vista.getBotonExportar().setEnabled(exportar);
+		this.vista.getBotonReset().setEnabled(reset);
 	}
 	
 	public void cargar(){
 		FileManager lector = new FileManager();
 		JTextArea area = vista.getEntrada();
 		area.setText(lector.leeArchivo(vista));
+		bloquearBotones(false, true, false, true);
 	}
 	
-	public void analizar(){
-		
+	public void exportar(){
+		FileManager escritor = new FileManager();
+		JTextArea area = vista.getSalida();		
+		escritor.escribeArchivo(vista, area.getText());
+	}
+	
+	public void analizar() {
+
 		AnalisisLexico lexico = new AnalisisLexico();
-		if( lexico.analiza( vista.getEntrada().getText() ) ){
-			vista.setDatosSimbolosSalida( lexico.getTable() );
-			vista.setSalida( lexico.getAnalisis() );
-		}else{
-			JOptionPane.showMessageDialog(null, "Metodo Por Implementar.  ", 
-					"Error!!", JOptionPane.WARNING_MESSAGE);
+		if (lexico.analiza(vista.getEntrada().getText())) {
+			vista.setSalida(lexico.getAnalisis());
+			
+			Object[][] tabla1 = vista.getDatosSimbolosEntrada();
+			Object[][] tabla2 = lexico.getTable();
+			vista.setDatosSimbolosSalida( juntarTablas(tabla1,tabla2) );
+
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"No fue posible analizar el archivo.", "Error!!",
+					JOptionPane.WARNING_MESSAGE);
+			bloquearBotones(false, true, false, true);
 		}
 		
+		bloquearBotones(false, false, true, true);
+
+	}
+	
+	private Object[][] juntarTablas(Object[][] tabla1, Object[][] tabla2){
+
+		Object[][] objeto = new Object[tabla1.length + tabla2.length][3];
+
+		for (int i = 0; i < tabla1.length; i++)
+			objeto[i] = tabla1[i];
+		
+		for (int i = tabla1.length; i < (tabla1.length+tabla2.length); i++)
+			objeto[i] = tabla2[i-tabla1.length];
+		
+		return objeto;
 	}
 	
 }

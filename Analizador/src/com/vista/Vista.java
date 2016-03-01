@@ -30,6 +30,9 @@ public class Vista extends JFrame {
 	private JButton botonCargar;
 	private JButton botonAnalizar;
 	private JButton botonCerrar;
+	private JButton botonExportar;
+	private JButton botonReset;
+	
 	private JFileChooser fileChooser;
 	private Border border;
  	
@@ -81,6 +84,8 @@ public class Vista extends JFrame {
 		this.salida = new JTextArea();
 		this.scrollSalida = new JScrollPane();
 		this.botonCerrar = new JButton();
+		this.botonExportar = new JButton();
+		this.botonReset = new JButton();
 		this.token = new Token();
 		this.tituloSimbolos = token.getTitle();
 		this.datosSimbolosEntrada = token.getTable();
@@ -92,16 +97,18 @@ public class Vista extends JFrame {
 	}
 
 	private void adicionaObjetos() {
-		this.contenedor.add(entrada);
-		this.contenedor.add(scrollEntrada);
-		this.contenedor.add(botonCargar);
-		this.contenedor.add(botonAnalizar);
 		this.contenedor.add(fileChooser);
+		this.contenedor.add(entrada);
 		this.contenedor.add(salida);
+		this.contenedor.add(scrollEntrada);
 		this.contenedor.add(scrollSalida);
-		this.contenedor.add(botonCerrar);
 		this.contenedor.add(scrollPaneEntrada);
 		this.contenedor.add(scrollPaneSalida);
+		this.contenedor.add(botonCargar);
+		this.contenedor.add(botonAnalizar);
+		this.contenedor.add(botonCerrar);
+		this.contenedor.add(botonExportar);
+		this.contenedor.add(botonReset);
 	}
 
 	private void configObjetos() {
@@ -124,9 +131,23 @@ public class Vista extends JFrame {
 		this.botonCerrar.setBounds(550, 500, 200, 23);
 		this.botonCerrar.setActionCommand("salir");
 		
+		this.botonExportar.setText("Exportar Programa");
+		this.botonExportar.setBounds(550, 26, 200, 23);
+		this.botonExportar.setActionCommand("exportar");
+		
+		this.botonReset.setText("Reset Analizador");
+		this.botonReset.setBounds(550, 250, 200, 23);
+		this.botonReset.setActionCommand("reset");
+		
+		this.botonCargar.setEnabled(true);
+		this.botonAnalizar.setEnabled(false);
+		this.botonCerrar.setEnabled(true);
+		this.botonExportar.setEnabled(false);
+		this.botonReset.setEnabled(false);
+		
 		this.entrada.setLineWrap(true);
 		this.entrada.setWrapStyleWord(true);
-		//this.entrada.setEditable(false);
+		this.entrada.setEditable(false);
 		this.entrada.setOpaque(false);
 		
 		this.salida.setLineWrap(true);
@@ -163,6 +184,8 @@ public class Vista extends JFrame {
 		this.botonCargar.addActionListener(control);
 		this.botonAnalizar.addActionListener(control);
 		this.botonCerrar.addActionListener(control);
+		this.botonExportar.addActionListener(control);
+		this.botonReset.addActionListener(control);
 	}
 	
 	public JFileChooser getFileChooser() {
@@ -185,10 +208,22 @@ public class Vista extends JFrame {
 		return datosSimbolosSalida;
 	}
 	
+	public JTextArea getSalida() {
+		return salida;
+	}
+	
 	public void setSalida(String analisis) {
 		this.salida.setText(analisis);
 	}
+	
+	public Object[][] getDatosSimbolosEntrada() {
+		return datosSimbolosEntrada;
+	}
 
+	public void setDatosSimbolosEntrada(Object[][] datosSimbolosEntrada) {
+		this.datosSimbolosEntrada = datosSimbolosEntrada;
+	}
+	
 	public void setDatosSimbolosSalida(Object[][] datosSimbolosSalida) {
 		this.contenedor.remove(tablaSimbolosSalida);
 		this.contenedor.remove(scrollPaneSalida);
@@ -196,6 +231,46 @@ public class Vista extends JFrame {
 		this.scrollPaneSalida = new JScrollPane(tablaSimbolosSalida);
 		this.contenedor.add(scrollPaneSalida);
 		this.configScrollPaneSalida();
+	}
+
+	public JButton getBotonCargar() {
+		return botonCargar;
+	}
+
+	public void setBotonCargar(JButton botonCargar) {
+		this.botonCargar = botonCargar;
+	}
+
+	public JButton getBotonAnalizar() {
+		return botonAnalizar;
+	}
+
+	public void setBotonAnalizar(JButton botonAnalizar) {
+		this.botonAnalizar = botonAnalizar;
+	}
+
+	public JButton getBotonCerrar() {
+		return botonCerrar;
+	}
+
+	public void setBotonCerrar(JButton botonCerrar) {
+		this.botonCerrar = botonCerrar;
+	}
+
+	public JButton getBotonExportar() {
+		return botonExportar;
+	}
+
+	public void setBotonExportar(JButton botonExportar) {
+		this.botonExportar = botonExportar;
+	}
+
+	public JButton getBotonReset() {
+		return botonReset;
+	}
+
+	public void setBotonReset(JButton botonReset) {
+		this.botonReset = botonReset;
 	}
 
 }
