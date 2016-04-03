@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 import com.controlador.lexico.AnalisisLexico;
-import com.controlador.sintactico.ASintactico;
+import com.controlador.sintactico.AnalisisSintactico;
 import com.modelo.FileManager;
 import com.vista.Vista;
 
@@ -105,7 +105,10 @@ public class Controlador implements ActionListener {
 	
 	private void analizaSintaxis() {
 		
-		ASintactico aSintactico = new ASintactico(vista.getTitulos(), vista.getDatosSimbolosSintaxisEntrada());
+		String[] lines = {quitarSecuenciaDeEscape(vista.getSalida().getText())};
+		
+		AnalisisSintactico aSintactico = new AnalisisSintactico(
+				lines, vista.getDatosSimbolosSintaxisEntrada());
 		
 		Object[][] salida1 = aSintactico.getSalida();
 		Object[][] salida2 = aSintactico.getSalida1();
@@ -114,6 +117,22 @@ public class Controlador implements ActionListener {
 		
 		vista.setDatosSintaxisSalida(salida1, titulos);
 	}
+	
+	private String quitarSecuenciaDeEscape(String texto){
+		
+		System.out.println("Inicio:*****" + texto + "*****");
+		
+		texto = texto.replaceAll("\t", "");
+		texto = texto.replaceAll("\n", "");
+		texto = texto.replaceAll("\r", "");
+		texto = texto.replaceAll("\f", "");
+		texto = texto.replaceAll("\b", "");
+		
+		System.out.println("Resultado:*****" + texto + "*****");
+		
+		return texto;
+	}
+	
 	
 }
 

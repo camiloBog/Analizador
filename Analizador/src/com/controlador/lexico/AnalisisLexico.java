@@ -33,7 +33,7 @@ public class AnalisisLexico {
 			for (int i = 0; i < fuente.length(); i++) {
 				
 				String letra = String.valueOf(ch[i]);
-				
+				//System.out.println("LEtra: "+letra);
 				
 				//Si es comillas cambia la bandera
 				if( letra.equals("\"") ){
@@ -95,31 +95,23 @@ public class AnalisisLexico {
 		return this.salida;
 	}
 	
-	public Object[][] getTable(){
-		
-		
-		
+	public Object[][] getTable() {
+
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		for (String[] strings : lista) {
 			map.put(strings[0], strings);
 		}
-		
+
 		Object[][] objeto = new Object[map.size()][3];
-		Iterator it = map.keySet().iterator();
+		Iterator<String> it = map.keySet().iterator();
 		int i = 0;
-		
-		while(it.hasNext()){
+
+		while (it.hasNext()) {
 			String key = (String) it.next();
-			objeto[i] =  lista.get(i);
-		  System.out.println("Clave: " + key + " -> Valor: " + map.get(key));
-		  i++;
+			objeto[i] = map.get(key);
+			i++;
 		}
-		
-		
-		
-		
-			
-		
+
 		return objeto;
 	}
 
