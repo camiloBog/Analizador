@@ -19,21 +19,25 @@ public class Controlador implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-	
-		if (e.getActionCommand().equals("cargar")){
-			cargar();
-		}else if (e.getActionCommand().equals("analizar")){
-			analizar();
-		}else if (e.getActionCommand().equals("exportar")){
-			exportar();
-		}else if (e.getActionCommand().equals("reset")){
+
+		if (e.getActionCommand().equals("cargar")) {
+			this.cargar();
+		} else if (e.getActionCommand().equals("analizar")) {
+			this.analizar();
+		} else if (e.getActionCommand().equals("exportar")) {
+			this.exportar();
+		} else if (e.getActionCommand().equals("reset")) {
 			this.vista.dispose();
 			this.vista = new Vista();
-		}else if (e.getActionCommand().equals("salir")){
+		}else if (e.getActionCommand().equals("cargarSintaxis")) {
+			this.cargaSintaxis();
+		} else if (e.getActionCommand().equals("analizaSintaxis")) {
+			this.analizaSintaxis();
+		}else if (e.getActionCommand().equals("salir")) {
 			System.exit(0);
 		}
 	}
-	
+
 	private void bloquearBotones(boolean cargar, boolean analizar, 
 			boolean exportar, boolean reset ){
 		this.vista.getBotonCargar().setEnabled(cargar);
@@ -42,20 +46,20 @@ public class Controlador implements ActionListener {
 		this.vista.getBotonReset().setEnabled(reset);
 	}
 	
-	public void cargar(){
+	private void cargar(){
 		FileManager lector = new FileManager();
 		JTextArea area = vista.getEntrada();
 		area.setText(lector.leeArchivo(vista));
 		bloquearBotones(false, true, false, true);
 	}
 	
-	public void exportar(){
+	private void exportar(){
 		FileManager escritor = new FileManager();
 		JTextArea area = vista.getSalida();		
 		escritor.escribeArchivo(vista, area.getText());
 	}
 	
-	public void analizar() {
+	private void analizar() {
 
 		AnalisisLexico lexico = new AnalisisLexico();
 		if (lexico.analiza(vista.getEntrada().getText())) {
@@ -87,6 +91,20 @@ public class Controlador implements ActionListener {
 			objeto[i] = tabla2[i-tabla1.length];
 		
 		return objeto;
+	}
+
+	private void cargaSintaxis() {
+		FileManager lector = new FileManager();
+		
+		String[] temporal =  {"Dato1","Dato2"};
+		this.vista.setDatosSintaxisEntrada(lector.CargarSintaxis(vista), lector.getNomcolumnas());
+		
+		//bloquearBotones(false, true, false, true);
+	}
+	
+	private void analizaSintaxis() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
