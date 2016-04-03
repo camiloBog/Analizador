@@ -1,6 +1,9 @@
 package com.controlador.lexico;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class AnalisisLexico {
@@ -94,9 +97,29 @@ public class AnalisisLexico {
 	
 	public Object[][] getTable(){
 		
-		Object[][] objeto = new Object[lista.size()][3];
-		for (int i = 0; i < lista.size(); i++)
+		
+		
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		for (String[] strings : lista) {
+			map.put(strings[0], strings);
+		}
+		
+		Object[][] objeto = new Object[map.size()][3];
+		Iterator it = map.keySet().iterator();
+		int i = 0;
+		
+		while(it.hasNext()){
+			String key = (String) it.next();
 			objeto[i] =  lista.get(i);
+		  System.out.println("Clave: " + key + " -> Valor: " + map.get(key));
+		  i++;
+		}
+		
+		
+		
+		
+			
+		
 		return objeto;
 	}
 

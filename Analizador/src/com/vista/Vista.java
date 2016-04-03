@@ -55,6 +55,7 @@ public class Vista extends JFrame {
 	private JTable tablaSintaxisEntrada;
 	private JScrollPane scrollPaneSintaxisEntrada;
 	private Object[][] datosSimbolosSintaxisEntrada;
+	private String[] titulos;
 	
 	private JTable tablaSintaxisSalida;
 	private JScrollPane scrollPaneSintaxisSalida;
@@ -114,10 +115,8 @@ public class Vista extends JFrame {
 		this.botonAnalizarSintaxis = new JButton();
 		this.tablaSintaxisEntrada = new JTable();
 		this.scrollPaneSintaxisEntrada = new JScrollPane(tablaSintaxisEntrada);
-		//this.datosSimbolosSintaxisEntrada = new ;
 		this.tablaSintaxisSalida = new JTable();
 		this.scrollPaneSintaxisSalida = new JScrollPane(tablaSintaxisSalida);
-		//this.datosSimbolosSintaxisSalida = new ;
 	}
 
 	private void adicionaObjetos() {
@@ -231,6 +230,7 @@ public class Vista extends JFrame {
 	}
 	
 	private void configScrollPaneEntradaSintaxis(){
+		this.tablaSintaxisEntrada.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		this.scrollPaneSintaxisEntrada.setBounds(830, 50, 370, 200);
 		this.scrollPaneSintaxisEntrada.setEnabled(false);
 		this.scrollPaneSintaxisEntrada.setBorder(border);
@@ -298,12 +298,23 @@ public class Vista extends JFrame {
 	}
 	
 	public void setDatosSintaxisEntrada(Object[][] datos, String[] titulos) {
+		this.datosSimbolosSintaxisEntrada = datos;
+		this.titulos = titulos;
 		this.contenedor.remove(tablaSintaxisEntrada);
 		this.contenedor.remove(scrollPaneSintaxisEntrada);
 		this.tablaSintaxisEntrada = new JTable(datos, titulos);
 		this.scrollPaneSintaxisEntrada = new JScrollPane(tablaSintaxisEntrada);
 		this.contenedor.add(scrollPaneSintaxisEntrada);
 		this.configScrollPaneEntradaSintaxis();
+	}
+	
+	public void setDatosSintaxisSalida(Object[][] datos, String[] titulos) {
+		this.contenedor.remove(tablaSintaxisSalida);
+		this.contenedor.remove(scrollPaneSintaxisSalida);
+		this.tablaSintaxisSalida = new JTable(datos, titulos);
+		this.scrollPaneSintaxisSalida = new JScrollPane(tablaSintaxisSalida);
+		this.contenedor.add(scrollPaneSintaxisSalida);
+		this.configScrollPaneSalidaSintaxis();
 	}
 
 	public JButton getBotonCargar() {
@@ -344,6 +355,14 @@ public class Vista extends JFrame {
 
 	public void setBotonReset(JButton botonReset) {
 		this.botonReset = botonReset;
+	}
+
+	public Object[][] getDatosSimbolosSintaxisEntrada() {
+		return datosSimbolosSintaxisEntrada;
+	}
+
+	public String[] getTitulos() {
+		return titulos;
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 import com.controlador.lexico.AnalisisLexico;
+import com.controlador.sintactico.ASintactico;
 import com.modelo.FileManager;
 import com.vista.Vista;
 
@@ -55,8 +56,7 @@ public class Controlador implements ActionListener {
 	
 	private void exportar(){
 		FileManager escritor = new FileManager();
-		JTextArea area = vista.getSalida();		
-		escritor.escribeArchivo(vista, area.getText());
+		escritor.escribeArchivo(vista, vista.getSalida().getText());
 	}
 	
 	private void analizar() {
@@ -65,9 +65,10 @@ public class Controlador implements ActionListener {
 		if (lexico.analiza(vista.getEntrada().getText())) {
 			vista.setSalida(lexico.getAnalisis());
 			
-			Object[][] tabla1 = vista.getDatosSimbolosEntrada();
+			//Object[][] tabla1 = vista.getDatosSimbolosEntrada();
 			Object[][] tabla2 = lexico.getTable();
-			vista.setDatosSimbolosSalida( juntarTablas(tabla1,tabla2) );
+			//vista.setDatosSimbolosSalida( juntarTablas(tabla1,tabla2) );
+			vista.setDatosSimbolosSalida( tabla2 );
 
 		} else {
 			JOptionPane.showMessageDialog(null,
@@ -79,7 +80,7 @@ public class Controlador implements ActionListener {
 		bloquearBotones(false, false, true, true);
 
 	}
-	
+	/*
 	private Object[][] juntarTablas(Object[][] tabla1, Object[][] tabla2){
 
 		Object[][] objeto = new Object[tabla1.length + tabla2.length][3];
@@ -92,19 +93,36 @@ public class Controlador implements ActionListener {
 		
 		return objeto;
 	}
+	*/
 
 	private void cargaSintaxis() {
-		FileManager lector = new FileManager();
 		
-		String[] temporal =  {"Dato1","Dato2"};
+		FileManager lector = new FileManager();
 		this.vista.setDatosSintaxisEntrada(lector.CargarSintaxis(vista), lector.getNomcolumnas());
 		
 		//bloquearBotones(false, true, false, true);
 	}
 	
 	private void analizaSintaxis() {
-		// TODO Auto-generated method stub
 		
+		ASintactico aSintactico = new ASintactico(vista.getTitulos(), vista.getDatosSimbolosSintaxisEntrada());
+		
+		Object[][] salida1 = aSintactico.getSalida();
+		Object[][] salida2 = aSintactico.getSalida1();
+		
+		String[] titulos = {"Pila", "ae", "X", "a", "M[X,a]", "X->Y1,Y2..YK","Salida"};
+		
+		vista.setDatosSintaxisSalida(salida1, titulos);
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+

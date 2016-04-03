@@ -116,8 +116,7 @@ public class FileManager {
 		
 		fileChooser.showOpenDialog(vista);
 		File abre = fileChooser.getSelectedFile();
-
-		// se captura la ubicacion del archivo a leer
+		
 		if (abre != null) {
 			try {
 				
