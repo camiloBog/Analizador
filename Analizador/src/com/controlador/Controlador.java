@@ -33,6 +33,7 @@ public class Controlador implements ActionListener {
 		}else if (e.getActionCommand().equals("cargarSintaxis")) {
 			this.cargaSintaxis();
 		} else if (e.getActionCommand().equals("analizaSintaxis")) {
+			this.analizar();
 			this.analizaSintaxis();
 		}else if (e.getActionCommand().equals("salir")) {
 			System.exit(0);
@@ -106,21 +107,18 @@ public class Controlador implements ActionListener {
 	private void analizaSintaxis() {
 		
 		String[] lines = {quitarSecuenciaDeEscape(vista.getSalida().getText())};
-		
+		 
 		AnalisisSintactico aSintactico = new AnalisisSintactico(
 				lines, vista.getDatosSimbolosSintaxisEntrada());
 		
-		Object[][] salida1 = aSintactico.getSalida();
-		Object[][] salida2 = aSintactico.getSalida1();
+		Object[][] salida = aSintactico.getSalida();
 		
 		String[] titulos = {"Pila", "ae", "X", "a", "M[X,a]", "X->Y1,Y2..YK","Salida"};
 		
-		vista.setDatosSintaxisSalida(salida1, titulos);
+		vista.setDatosSintaxisSalida(salida, titulos);
 	}
 	
 	private String quitarSecuenciaDeEscape(String texto){
-		
-		System.out.println("Inicio:*****" + texto + "*****");
 		
 		texto = texto.replaceAll("\t", "");
 		texto = texto.replaceAll("\n", "");
@@ -128,20 +126,7 @@ public class Controlador implements ActionListener {
 		texto = texto.replaceAll("\f", "");
 		texto = texto.replaceAll("\b", "");
 		
-		System.out.println("Resultado:*****" + texto + "*****");
-		
 		return texto;
 	}
-	
-	
+		
 }
-
-
-
-
-
-
-
-
-
-

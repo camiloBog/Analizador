@@ -16,7 +16,17 @@ public class AnalisisSintactico {
 	private int pos = 0, cont = 0, band1 = 0;
 
 	public AnalisisSintactico(String[] cadena, Object[][] tabla) {
-		
+		/*
+		String[] cadena = {"id","+","id","*","id",";"}; //Dividir en el String de entrada
+		Object[][] tabla = {//Poner el titulo en la tabla.
+				{"", "id", "+", "*", "(", ")", "$"},
+				{"E", "E -- T E'", "", "", "E -- T E'", "", ""}, 
+				{"E'", "", "E' -- + T E'", "", "", "E' -- e", "E' -- e"}, 
+				{"T", "T -- F T'", "", "", "T -- F T'", "", ""}, 
+				{"T'", "", "T' -- e", "T' --> * F T'", "", "T' -- e", "T' -- e"}, 
+				{"F", "F -- id", "", "", "F -- ( E )", "", ""}
+				};
+		*/
 		//"Pila", "ae", "X", "a", "M[X,a]", "X->Y1,Y2..YK","Salida"
 
 		this.cadena1 = cadena;
@@ -42,7 +52,7 @@ public class AnalisisSintactico {
 
 		salida = new Object[0][7];
 
-		while (pila.get((pila.size()) - 1).toString() != "$") {
+		while ( !pila.get((pila.size()) - 1).toString().equals("$")) {
 
 			salidacopia = salida;
 			salida = new Object[salidacopia.length + 1][7];

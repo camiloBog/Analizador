@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ import com.vista.Vista;
 public class FileManager {
 	
 	private String [] nomcolumnas;
+	private String [][] datosTitulo;
 
 	public void escribeArchivo(Vista vista, String salida) {
 
@@ -37,7 +39,7 @@ public class FileManager {
 				fileWriter.write(salida);
 
 				JOptionPane.showMessageDialog(null,
-						"Se guardo exitosamente el archivo.", "InformaciÃ³n",
+						"Se guardo exitosamente el archivo.", "Información",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 
@@ -142,19 +144,19 @@ public class FileManager {
 	
 	private Object[][] procesaArchivo(Workbook libro) {
 		
-		String [][]datos, datos2;
+		String [][]datos;
 		Sheet hoja1 = libro.getSheet(0);
 
 		datos = new String[hoja1.getRows()][hoja1.getColumns()];
 		
 		nomcolumnas = new String[hoja1.getColumns()];
 
-		datos2 = new String[hoja1.getRows()][hoja1.getColumns()];
+		datosTitulo = new String[hoja1.getRows()][hoja1.getColumns()];
 
 		for (int fila = 0; fila < hoja1.getRows(); fila++) {
 			for (int columna = 0; columna < hoja1.getColumns(); columna++) {
 
-				datos2[fila][columna] = hoja1.getCell(columna, fila)
+				datosTitulo[fila][columna] = hoja1.getCell(columna, fila)
 						.getContents();
 
 				if (fila == 0) {
@@ -165,12 +167,32 @@ public class FileManager {
 			}
 		}
 		
-		return datos;
+		return clean(datos);
 
+	}
+	
+	private String [][] clean(String [][] tableInput){
+		
+		ArrayList<String[]> list = new ArrayList<String[]>();
+		for (String[] strings : tableInput)
+			if(null!=strings[0])
+				list.add(strings);
+		
+		String [][] tableOutput = new String[list.size()][list.get(0).length];
+		
+		for (int i = 0; i < list.size(); i++)
+			for (int j = 0; j < list.get(i).length; j++)
+				tableOutput[i][j] = list.get(i)[j];
+		
+		return tableOutput;
 	}
 
 	public String [] getNomcolumnas() {
 		return nomcolumnas;
-	}	
+	}
+	
+	public String[][] getDatosTitulo() {
+		return datosTitulo;
+	}
 	
 }
