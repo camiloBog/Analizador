@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -165,12 +166,46 @@ public class FileManager {
 			}
 		}
 		
-		return datos;
+		return limpiarTabla(datos);
 
 	}
+	
+	private Object[][] limpiarTabla(Object[][] tabla){
 
+		ArrayList<Object[]> list = new ArrayList<Object[]>();
+
+		for (Object[] objects : tabla)
+			if( null != objects[0])
+				list.add(objects);
+		
+		Object[][] tabla2 = new Object[list.size()][list.get(0).length];
+		
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < list.get(i).length; j++) {
+				tabla2[i][j] = list.get(i)[j].toString();
+			}
+		}
+		
+		return tabla2;
+	}
+	
 	public String [] getNomcolumnas() {
 		return nomcolumnas;
 	}	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -30,11 +30,11 @@ public class Controlador implements ActionListener {
 		} else if (e.getActionCommand().equals("reset")) {
 			this.vista.dispose();
 			this.vista = new Vista();
-		}else if (e.getActionCommand().equals("cargarSintaxis")) {
+		} else if (e.getActionCommand().equals("cargarSintaxis")) {
 			this.cargaSintaxis();
 		} else if (e.getActionCommand().equals("analizaSintaxis")) {
 			this.analizaSintaxis();
-		}else if (e.getActionCommand().equals("salir")) {
+		} else if (e.getActionCommand().equals("salir")) {
 			System.exit(0);
 		}
 	}
