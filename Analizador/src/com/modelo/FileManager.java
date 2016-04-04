@@ -20,7 +20,7 @@ import com.vista.Vista;
 public class FileManager {
 	
 	private String [] nomcolumnas;
-	private String [][] datosTitulo;
+	private String [][] gramatica;
 
 	public void escribeArchivo(Vista vista, String salida) {
 
@@ -151,12 +151,12 @@ public class FileManager {
 		
 		nomcolumnas = new String[hoja1.getColumns()];
 
-		datosTitulo = new String[hoja1.getRows()][hoja1.getColumns()];
+		gramatica = new String[hoja1.getRows()][hoja1.getColumns()];
 
 		for (int fila = 0; fila < hoja1.getRows(); fila++) {
 			for (int columna = 0; columna < hoja1.getColumns(); columna++) {
 
-				datosTitulo[fila][columna] = hoja1.getCell(columna, fila)
+				gramatica[fila][columna] = hoja1.getCell(columna, fila)
 						.getContents();
 
 				if (fila == 0) {
@@ -191,8 +191,8 @@ public class FileManager {
 		return nomcolumnas;
 	}
 	
-	public String[][] getDatosTitulo() {
-		return datosTitulo;
+	public String[][] getGramatica() {
+		return gramatica;
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.vista;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -60,6 +61,9 @@ public class Vista extends JFrame {
 	private JTable tablaSintaxisSalida;
 	private JScrollPane scrollPaneSintaxisSalida;
 	private Object[][] datosSimbolosSintaxisSalida;
+	
+	private String[][] gramatica;
+	private ArrayList<String> listaSeparada;
 
 	private int ancho = 1250;
 	private int alto = 600;
@@ -363,4 +367,20 @@ public class Vista extends JFrame {
 		return titulos;
 	}
 
+	public String[][] getGramatica() {
+		return gramatica;
+	}
+
+	public void setGramatica(String[][] gramatica) {
+		this.gramatica = gramatica;
+	}
+
+	public ArrayList<String> getListaSeparada() {
+		return listaSeparada;
+	}
+
+	public void setListaSeparada(ArrayList<String> listaSeparada) {
+		this.listaSeparada = listaSeparada;
+	}
+		
 }

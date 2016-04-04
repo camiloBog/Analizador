@@ -10,12 +10,14 @@ public class AnalisisLexico {
 
 	private ArrayList<String[]> lista;
 	private String salida;
+	private ArrayList<String> listaSeparada; 
 	private String ID = "id";
 	private String NO = "no";
 
 	public AnalisisLexico() {
 		this.salida = "";
-		this.lista = new ArrayList<String[]>(); 
+		this.lista = new ArrayList<String[]>();
+		this.listaSeparada = new ArrayList<String>(); 
 	}
 
 	public boolean analiza(String fuente) {
@@ -39,8 +41,11 @@ public class AnalisisLexico {
 				if( letra.equals("\"") ){
 					bandera = !bandera;
 					
-					if( !texto.equals("") )
+					if( !texto.equals("") ){
 						this.salida += "\""+texto+"\"";
+						this.listaSeparada.add(texto);
+					}
+						
 					continue;
 				}
 				
@@ -56,9 +61,11 @@ public class AnalisisLexico {
 						addData(palabra, ID, NO);
 					}else{
 						this.salida += palabra;
+						//this.list.add(palabra);
 					}
 					
 					this.salida += letra;
+					//this.list.add(letra);
 					
 					palabra = "";
 					texto = "";
@@ -67,11 +74,14 @@ public class AnalisisLexico {
 					if(!"".equals(palabra) && !automata.esToken(palabra) ){
 						addData(palabra, ID, NO);
 						this.salida += ID;
+						this.listaSeparada.add(ID);
 					}else{
 						this.salida += palabra;
+						this.listaSeparada.add(palabra);
 					}
 					
 					this.salida += letra;
+					this.listaSeparada.add(letra);
 					palabra = "";
 					texto = "";
 				}else{
@@ -122,6 +132,14 @@ public class AnalisisLexico {
 			lista.add(data);
 		}
 			
+	}
+
+	public ArrayList<String> getListaSeparada() {
+		return listaSeparada;
+	}
+
+	public void setListaSeparada(ArrayList<String> listaSeparada) {
+		this.listaSeparada = listaSeparada;
 	}
 
 }
