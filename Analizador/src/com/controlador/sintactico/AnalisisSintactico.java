@@ -13,35 +13,21 @@ public class AnalisisSintactico {
 	private String p = "$";
 	private String finala;
 	private String val = "ok";
-	private int pos = 0, cont = 0, band1 = 0;
+	private int pos = 0, cont = 0, band1 = 0, blocks = 8;
 
 	public AnalisisSintactico(String[] cadena, Object[][] tabla) {
-		/*
-		String[] cadena = {"id","+","id","*","id",";"}; //Dividir en el String de entrada
-		Object[][] tabla = {//Poner el titulo en la tabla.
-				{"", "id", "+", "*", "(", ")", "$"},
-				{"E", "E -- T E'", "", "", "E -- T E'", "", ""}, 
-				{"E'", "", "E' -- + T E'", "", "", "E' -- e", "E' -- e"}, 
-				{"T", "T -- F T'", "", "", "T -- F T'", "", ""}, 
-				{"T'", "", "T' -- e", "T' --> * F T'", "", "T' -- e", "T' -- e"}, 
-				{"F", "F -- id", "", "", "F -- ( E )", "", ""}
-				};
-		*/
-		//"Pila", "ae", "X", "a", "M[X,a]", "X->Y1,Y2..YK","Salida"
 
 		this.cadena1 = cadena;
 		this.tabla1 = tabla;
 
 		cadenacopia = new String[cadena1.length];
-		for (int i = 0; i < cadenacopia.length; i++) {
+		for (int i = 0; i < cadenacopia.length; i++)
 			cadenacopia[i] = cadena1[i];
-		}
 
 		cadena1 = new String[(cadena1.length) + 1];
 
-		for (int i = 0; i < cadenacopia.length; i++) {
+		for (int i = 0; i < cadenacopia.length; i++)
 			cadena1[i] = cadenacopia[i];
-		}
 
 		cadena1[(cadena1.length) - 1] = p;
 
@@ -50,28 +36,25 @@ public class AnalisisSintactico {
 		pilar = tabla1[1][0].toString();
 		pila.push(pilar);
 
-		salida = new Object[0][7];
+		salida = new Object[0][blocks];
 
-		while ( !pila.get((pila.size()) - 1).toString().equals("$")) {
+		while (!pila.get((pila.size()) - 1).toString().equals("$")) {
 
 			salidacopia = salida;
-			salida = new Object[salidacopia.length + 1][7];
+			salida = new Object[salidacopia.length + 1][blocks];
 
-			for (int m = 0; m < salidacopia.length; m++) {
-
+			for (int m = 0; m < salidacopia.length; m++)
 				salida[m] = salidacopia[m];
-			}
 
 			finala = "";
-			for (int i = 0; i < pila.size(); i++) {
+			for (int i = 0; i < pila.size(); i++)
 				finala += pila.get(i);
-			}
 
 			salida[pos][0] = finala;
 
-			if ((pila.get((pila.size()) - 1)).equals(a)) {
+			if ((pila.get((pila.size()) - 1)).equals(a))
 				cont++;
-			}
+			
 			salida[pos][1] = cadena1[cont];
 			x = pila.get((pila.size()) - 1);
 			pila.pop();
@@ -128,13 +111,9 @@ public class AnalisisSintactico {
 									concatenarcopia = "";
 
 								}
-
 							}
-
 						}
-
 					}
-
 				}
 			}
 
@@ -142,16 +121,16 @@ public class AnalisisSintactico {
 			salida[pos][6] = val;
 			salida[pos][2] = x;
 			salida[pos][3] = cadena1[0];
+			salida[pos][7] = getEntrada(cadena1, cont);
 
 			pos++;
 
 		}
 
 		salidacopia = salida;
-		salida = new Object[salidacopia.length + 1][7];
+		salida = new Object[salidacopia.length + 1][blocks];
 
 		for (int m = 0; m < salidacopia.length; m++) {
-
 			salida[m] = salidacopia[m];
 		}
 
@@ -162,6 +141,27 @@ public class AnalisisSintactico {
 
 	}
 
+	private String getEntrada(String[] entrada, int obj) {
+
+		String salida = "";
+		for (int i = obj; i < entrada.length; i++)
+			salida += entrada[i];
+
+		return salida;
+	}
+	
+	public Object[][] getTablaSalida() {
+		
+		Object[][] tabla = new Object[this.salida.length][3];
+		for (int i = 0; i < this.salida.length; i++) {
+			tabla[i][0] =  salida[i][0];
+			tabla[i][1] =  salida[i][7];
+			tabla[i][2] =  salida[i][5];
+		}
+		
+		return tabla;
+	}
+
 	public Object[][] getSalida() {
 		return salida;
 	}
@@ -169,7 +169,7 @@ public class AnalisisSintactico {
 	public void setSalida(Object[][] salida) {
 		this.salida = salida;
 	}
-	
+
 	public Object[][] getSalida1() {
 		return salida1;
 	}

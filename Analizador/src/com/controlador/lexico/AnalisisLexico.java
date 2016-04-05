@@ -35,7 +35,6 @@ public class AnalisisLexico {
 			for (int i = 0; i < fuente.length(); i++) {
 				
 				String letra = String.valueOf(ch[i]);
-				//System.out.println("LEtra: "+letra);
 				
 				//Si es comillas cambia la bandera
 				if( letra.equals("\"") ){
@@ -134,12 +133,13 @@ public class AnalisisLexico {
 			
 	}
 
-	public ArrayList<String> getListaSeparada() {
-		return listaSeparada;
-	}
-
-	public void setListaSeparada(ArrayList<String> listaSeparada) {
-		this.listaSeparada = listaSeparada;
+	public String[] getListaSeparada() {
+		
+		String[] lista = new String[listaSeparada.size()];
+		for (int i = 0; i < listaSeparada.size(); i++)
+			lista[i] = listaSeparada.get(i);
+		
+		return lista;
 	}
 
 }

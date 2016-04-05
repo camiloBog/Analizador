@@ -2,7 +2,6 @@ package com.vista;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -57,15 +56,15 @@ public class Vista extends JFrame {
 	private JScrollPane scrollPaneSintaxisEntrada;
 	private Object[][] datosSimbolosSintaxisEntrada;
 	private String[] titulos;
+	private JLabel labelMovimientos;
 	
 	private JTable tablaSintaxisSalida;
 	private JScrollPane scrollPaneSintaxisSalida;
-	private Object[][] datosSimbolosSintaxisSalida;
 	
 	private String[][] gramatica;
-	private ArrayList<String> listaSeparada;
+	private String[] listaSeparada;
 
-	private int ancho = 1250;
+	private int ancho = 1080;
 	private int alto = 600;
 
 	public Vista() {
@@ -121,6 +120,7 @@ public class Vista extends JFrame {
 		this.scrollPaneSintaxisEntrada = new JScrollPane(tablaSintaxisEntrada);
 		this.tablaSintaxisSalida = new JTable();
 		this.scrollPaneSintaxisSalida = new JScrollPane(tablaSintaxisSalida);
+		this.labelMovimientos = new JLabel(); 
 	}
 
 	private void adicionaObjetos() {
@@ -142,6 +142,7 @@ public class Vista extends JFrame {
 		this.contenedor.add(botonAnalizarSintaxis);
 		this.contenedor.add(scrollPaneSintaxisEntrada);
 		this.contenedor.add(scrollPaneSintaxisSalida);
+		this.contenedor.add(labelMovimientos);
 	}
 
 	private void configObjetos() {
@@ -157,6 +158,9 @@ public class Vista extends JFrame {
 		
 		this.labelFin.setText("Tabla de Simbolos (Final)");
 		this.labelFin.setBounds(300, 190, 370, 200);
+		
+		this.labelMovimientos.setText("Tabla de Movimientos");
+		this.labelMovimientos.setBounds(580, 190, 370, 200);
 		
 		this.botonCargar.setText("Cargar programa");
 		this.botonCargar.setBounds(20, 26, 200, 23);
@@ -190,10 +194,9 @@ public class Vista extends JFrame {
 		this.botonAnalizar.setEnabled(false);
 		this.botonCerrar.setEnabled(true);
 		this.botonExportar.setEnabled(false);
-		this.botonReset.setEnabled(false);
-		
+		this.botonReset.setEnabled(false);;
 		this.botonCargarSintaxis.setEnabled(true);
-		this.botonAnalizarSintaxis.setEnabled(true);
+		this.botonAnalizarSintaxis.setEnabled(false);
 		
 		this.entrada.setLineWrap(true);
 		this.entrada.setWrapStyleWord(true);
@@ -220,8 +223,8 @@ public class Vista extends JFrame {
 		this.tablaSimbolosEntrada.setEnabled(false);
 		this.tablaSimbolosSalida.setEnabled(false);
 		
-		//this.contenedor.setBackground(new Color(218,225,255)); //Azul claro
-		this.contenedor.setBackground(new Color(239,239,239)); //Gris claro
+		this.contenedor.setBackground(new Color(218,225,255)); //Azul claro
+		//this.contenedor.setBackground(new Color(239,239,239)); //Gris claro
 		
 	}
 	
@@ -233,13 +236,13 @@ public class Vista extends JFrame {
 	
 	private void configScrollPaneEntradaSintaxis(){
 		this.tablaSintaxisEntrada.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		this.scrollPaneSintaxisEntrada.setBounds(580, 50, 550, 200);
+		this.scrollPaneSintaxisEntrada.setBounds(580, 50, 450, 200);
 		this.scrollPaneSintaxisEntrada.setEnabled(false);
 		this.scrollPaneSintaxisEntrada.setBorder(border);
 	}
 	
 	private void configScrollPaneSalidaSintaxis(){
-		this.scrollPaneSintaxisSalida.setBounds(580, 300, 550, 200);
+		this.scrollPaneSintaxisSalida.setBounds(580, 300, 450, 200);
 		this.scrollPaneSintaxisSalida.setEnabled(false);
 		this.scrollPaneSintaxisSalida.setBorder(border);
 	}
@@ -358,6 +361,14 @@ public class Vista extends JFrame {
 	public void setBotonReset(JButton botonReset) {
 		this.botonReset = botonReset;
 	}
+	
+	public JButton getBotonCargarSintaxis() {
+		return botonCargarSintaxis;
+	}
+
+	public JButton getBotonAnalizarSintaxis() {
+		return botonAnalizarSintaxis;
+	}
 
 	public Object[][] getDatosSimbolosSintaxisEntrada() {
 		return datosSimbolosSintaxisEntrada;
@@ -375,11 +386,11 @@ public class Vista extends JFrame {
 		this.gramatica = gramatica;
 	}
 
-	public ArrayList<String> getListaSeparada() {
+	public String[] getListaSeparada() {
 		return listaSeparada;
 	}
 
-	public void setListaSeparada(ArrayList<String> listaSeparada) {
+	public void setListaSeparada(String[] listaSeparada) {
 		this.listaSeparada = listaSeparada;
 	}
 		

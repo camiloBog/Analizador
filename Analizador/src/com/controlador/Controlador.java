@@ -34,25 +34,29 @@ public class Controlador implements ActionListener {
 			this.cargaSintaxis();
 		} else if (e.getActionCommand().equals("analizaSintaxis")) {
 			this.analizar();
-			this.analizaSintaxis();
+			//this.analizaSintaxis1();
+			this.analizaSintaxis2();
 		} else if (e.getActionCommand().equals("salir")) {
 			System.exit(0);
 		}
 	}
 
 	private void bloquearBotones(boolean cargar, boolean analizar, 
-			boolean exportar, boolean reset ){
+			boolean exportar, boolean reset, boolean cargarSintaxis, 
+			boolean analisarSintaxis ){
 		this.vista.getBotonCargar().setEnabled(cargar);
 		this.vista.getBotonAnalizar().setEnabled(analizar);
 		this.vista.getBotonExportar().setEnabled(exportar);
 		this.vista.getBotonReset().setEnabled(reset);
+		this.vista.getBotonCargarSintaxis().setEnabled(cargarSintaxis);
+		this.vista.getBotonAnalizarSintaxis().setEnabled(analisarSintaxis);
 	}
 	
 	private void cargar(){
 		FileManager lector = new FileManager();
 		JTextArea area = vista.getEntrada();
 		area.setText(lector.leeArchivo(vista));
-		bloquearBotones(false, true, false, true);
+		bloquearBotones(false, true, false, true, true, false);
 	}
 	
 	private void exportar(){
@@ -76,10 +80,10 @@ public class Controlador implements ActionListener {
 			JOptionPane.showMessageDialog(null,
 					"No fue posible analizar el archivo.", "Error!!",
 					JOptionPane.WARNING_MESSAGE);
-			bloquearBotones(false, true, false, true);
+			bloquearBotones(false, true, false, true, true, false);
 		}
 		
-		bloquearBotones(false, false, true, true);
+		bloquearBotones(false, false, true, true, true, false);
 
 	}
 	/*
@@ -103,27 +107,34 @@ public class Controlador implements ActionListener {
 		this.vista.setDatosSintaxisEntrada(lector.CargarSintaxis(vista), lector.getNomcolumnas());
 		this.vista.setGramatica(lector.getGramatica());
 		
-		//bloquearBotones(false, true, false, true);
+		bloquearBotones(false, false, false, true, false, true);
 	}
 	
-	private void analizaSintaxis() {
+	private void analizaSintaxis1() {
 
-		String[] lines = { quitarSecuenciaDeEscape(vista.getSalida().getText()) };
-
-		// AnalisisSintactico aSintactico = new AnalisisSintactico(lines,
-		// vista.getDatosSimbolosSintaxisEntrada());
 		AnalisisSintactico aSintactico = new AnalisisSintactico(
-				(String[]) vista.getListaSeparada().toArray(),
+				vista.getListaSeparada(),
 				vista.getGramatica());
 
 		Object[][] salida = aSintactico.getSalida();
-
-		String[] titulos = { "Pila", "ae", "X", "a", "M[X,a]", "X->Y1,Y2..YK",
-				"Salida" };
-
+		String[] titulos = { "Pila", "ae", "X", "a", "M[X,a]", "X->Y1,Y2..YK","Salida", "Entrada" };
 		vista.setDatosSintaxisSalida(salida, titulos);
+		
 	}
 	
+	private void analizaSintaxis2() {
+
+		AnalisisSintactico aSintactico = new AnalisisSintactico(
+				vista.getListaSeparada(), vista.getGramatica());
+
+		Object[][] salida = aSintactico.getTablaSalida();
+		String[] titulos = { "Pila", "Entrada", "Salida" };
+
+		vista.setDatosSintaxisSalida(salida, titulos);
+		bloquearBotones(false, false, false, true, false, false);
+	}
+	
+	/*
 	private String quitarSecuenciaDeEscape(String texto){
 		
 		texto = texto.replaceAll("\t", "");
@@ -132,9 +143,8 @@ public class Controlador implements ActionListener {
 		texto = texto.replaceAll("\f", "");
 		texto = texto.replaceAll("\b", "");
 		
-		
-		
 		return texto;
 	}
+	*/
 		
 }
