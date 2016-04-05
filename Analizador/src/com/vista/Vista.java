@@ -2,6 +2,7 @@ package com.vista;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -60,6 +61,9 @@ public class Vista extends JFrame {
 	private JTable tablaSintaxisSalida;
 	private JScrollPane scrollPaneSintaxisSalida;
 	private Object[][] datosSimbolosSintaxisSalida;
+	
+	private String[][] gramatica;
+	private ArrayList<String> listaSeparada;
 
 	private int ancho = 1250;
 	private int alto = 600;
@@ -152,7 +156,7 @@ public class Vista extends JFrame {
 		this.labelIni.setBounds(20, 190, 370, 200);
 		
 		this.labelFin.setText("Tabla de Simbolos (Final)");
-		this.labelFin.setBounds(430, 190, 370, 200);
+		this.labelFin.setBounds(300, 190, 370, 200);
 		
 		this.botonCargar.setText("Cargar programa");
 		this.botonCargar.setBounds(20, 26, 200, 23);
@@ -163,23 +167,23 @@ public class Vista extends JFrame {
 		this.botonAnalizar.setActionCommand("analizar");
 		
 		this.botonCerrar.setText("Salir");
-		this.botonCerrar.setBounds(1000, 500, 200, 23);
+		this.botonCerrar.setBounds(580, 500, 200, 23);
 		this.botonCerrar.setActionCommand("salir");
 		
 		this.botonExportar.setText("Exportar Programa");
-		this.botonExportar.setBounds(600, 26, 200, 23);
+		this.botonExportar.setBounds(300, 26, 200, 23);
 		this.botonExportar.setActionCommand("exportar");
 		
 		this.botonReset.setText("Reset Analizador");
-		this.botonReset.setBounds(600, 250, 200, 23);
+		this.botonReset.setBounds(300, 250, 200, 23);
 		this.botonReset.setActionCommand("reset");
 		
 		this.botonCargarSintaxis.setText("Cargar Sintaxis");
-		this.botonCargarSintaxis.setBounds(1000, 26, 200, 23);
+		this.botonCargarSintaxis.setBounds(580, 26, 200, 23);
 		this.botonCargarSintaxis.setActionCommand("cargarSintaxis");
 		
 		this.botonAnalizarSintaxis.setText("Analizar Sintaxis");
-		this.botonAnalizarSintaxis.setBounds(1000, 250, 200, 23);
+		this.botonAnalizarSintaxis.setBounds(580, 250, 200, 23);
 		this.botonAnalizarSintaxis.setActionCommand("analizaSintaxis");
 		
 		this.botonCargar.setEnabled(true);
@@ -199,17 +203,14 @@ public class Vista extends JFrame {
 		this.salida.setLineWrap(true);
 		this.salida.setWrapStyleWord(true);
 		this.salida.setEditable(false);
-		
-		this.scrollEntrada.setBounds(20, 50, 370, 200);
-		this.scrollEntrada.setViewportView(entrada);
-		
-		this.scrollSalida.setBounds(430, 50, 370, 200);
+			
+		this.scrollSalida.setBounds(300, 50, 250, 200);
 		this.scrollSalida.setViewportView(salida);
 		
-		this.scrollEntrada.setBounds(20, 50, 370, 200);
+		this.scrollEntrada.setBounds(20, 50, 250, 200);
 		this.scrollEntrada.setViewportView(entrada);
 		
-		this.scrollPaneEntrada.setBounds(20, 300, 370, 200);
+		this.scrollPaneEntrada.setBounds(20, 300, 250, 200);
 		this.scrollPaneEntrada.setEnabled(false);
 		this.scrollPaneEntrada.setBorder(border);
 		this.configScrollPaneSalida();
@@ -219,25 +220,26 @@ public class Vista extends JFrame {
 		this.tablaSimbolosEntrada.setEnabled(false);
 		this.tablaSimbolosSalida.setEnabled(false);
 		
-		this.contenedor.setBackground(new Color(218,225,255));
+		//this.contenedor.setBackground(new Color(218,225,255)); //Azul claro
+		this.contenedor.setBackground(new Color(239,239,239)); //Gris claro
 		
 	}
 	
 	private void configScrollPaneSalida(){
-		this.scrollPaneSalida.setBounds(430, 300, 370, 200);
+		this.scrollPaneSalida.setBounds(300, 300, 250, 200);
 		this.scrollPaneSalida.setEnabled(false);
 		this.scrollPaneSalida.setBorder(border);
 	}
 	
 	private void configScrollPaneEntradaSintaxis(){
 		this.tablaSintaxisEntrada.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		this.scrollPaneSintaxisEntrada.setBounds(830, 50, 370, 200);
+		this.scrollPaneSintaxisEntrada.setBounds(580, 50, 550, 200);
 		this.scrollPaneSintaxisEntrada.setEnabled(false);
 		this.scrollPaneSintaxisEntrada.setBorder(border);
 	}
 	
 	private void configScrollPaneSalidaSintaxis(){
-		this.scrollPaneSintaxisSalida.setBounds(830, 300, 370, 200);
+		this.scrollPaneSintaxisSalida.setBounds(580, 300, 550, 200);
 		this.scrollPaneSintaxisSalida.setEnabled(false);
 		this.scrollPaneSintaxisSalida.setBorder(border);
 	}
@@ -365,4 +367,20 @@ public class Vista extends JFrame {
 		return titulos;
 	}
 
+	public String[][] getGramatica() {
+		return gramatica;
+	}
+
+	public void setGramatica(String[][] gramatica) {
+		this.gramatica = gramatica;
+	}
+
+	public ArrayList<String> getListaSeparada() {
+		return listaSeparada;
+	}
+
+	public void setListaSeparada(ArrayList<String> listaSeparada) {
+		this.listaSeparada = listaSeparada;
+	}
+		
 }

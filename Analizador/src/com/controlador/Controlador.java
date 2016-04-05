@@ -33,6 +33,7 @@ public class Controlador implements ActionListener {
 		} else if (e.getActionCommand().equals("cargarSintaxis")) {
 			this.cargaSintaxis();
 		} else if (e.getActionCommand().equals("analizaSintaxis")) {
+			this.analizar();
 			this.analizaSintaxis();
 		} else if (e.getActionCommand().equals("salir")) {
 			System.exit(0);
@@ -64,6 +65,7 @@ public class Controlador implements ActionListener {
 		AnalisisLexico lexico = new AnalisisLexico();
 		if (lexico.analiza(vista.getEntrada().getText())) {
 			vista.setSalida(lexico.getAnalisis());
+			vista.setListaSeparada(lexico.getListaSeparada());
 			
 			//Object[][] tabla1 = vista.getDatosSimbolosEntrada();
 			Object[][] tabla2 = lexico.getTable();
@@ -99,28 +101,30 @@ public class Controlador implements ActionListener {
 		
 		FileManager lector = new FileManager();
 		this.vista.setDatosSintaxisEntrada(lector.CargarSintaxis(vista), lector.getNomcolumnas());
+		this.vista.setGramatica(lector.getGramatica());
 		
 		//bloquearBotones(false, true, false, true);
 	}
 	
 	private void analizaSintaxis() {
-		
-		String[] lines = {quitarSecuenciaDeEscape(vista.getSalida().getText())};
-		
+
+		String[] lines = { quitarSecuenciaDeEscape(vista.getSalida().getText()) };
+
+		// AnalisisSintactico aSintactico = new AnalisisSintactico(lines,
+		// vista.getDatosSimbolosSintaxisEntrada());
 		AnalisisSintactico aSintactico = new AnalisisSintactico(
-				lines, vista.getDatosSimbolosSintaxisEntrada());
-		
-		Object[][] salida1 = aSintactico.getSalida();
-		Object[][] salida2 = aSintactico.getSalida1();
-		
-		String[] titulos = {"Pila", "ae", "X", "a", "M[X,a]", "X->Y1,Y2..YK","Salida"};
-		
-		vista.setDatosSintaxisSalida(salida1, titulos);
+				(String[]) vista.getListaSeparada().toArray(),
+				vista.getGramatica());
+
+		Object[][] salida = aSintactico.getSalida();
+
+		String[] titulos = { "Pila", "ae", "X", "a", "M[X,a]", "X->Y1,Y2..YK",
+				"Salida" };
+
+		vista.setDatosSintaxisSalida(salida, titulos);
 	}
 	
 	private String quitarSecuenciaDeEscape(String texto){
-		
-		System.out.println("Inicio:*****" + texto + "*****");
 		
 		texto = texto.replaceAll("\t", "");
 		texto = texto.replaceAll("\n", "");
@@ -128,20 +132,9 @@ public class Controlador implements ActionListener {
 		texto = texto.replaceAll("\f", "");
 		texto = texto.replaceAll("\b", "");
 		
-		System.out.println("Resultado:*****" + texto + "*****");
+		
 		
 		return texto;
 	}
-	
-	
+		
 }
-
-
-
-
-
-
-
-
-
-

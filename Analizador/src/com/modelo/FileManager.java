@@ -20,6 +20,7 @@ import com.vista.Vista;
 public class FileManager {
 	
 	private String [] nomcolumnas;
+	private String [][] gramatica;
 
 	public void escribeArchivo(Vista vista, String salida) {
 
@@ -38,7 +39,7 @@ public class FileManager {
 				fileWriter.write(salida);
 
 				JOptionPane.showMessageDialog(null,
-						"Se guardo exitosamente el archivo.", "Información",
+						"Se guardo exitosamente el archivo.", "Informaci�n",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 
@@ -143,19 +144,19 @@ public class FileManager {
 	
 	private Object[][] procesaArchivo(Workbook libro) {
 		
-		String [][]datos, datos2;
+		String [][]datos;
 		Sheet hoja1 = libro.getSheet(0);
 
 		datos = new String[hoja1.getRows()][hoja1.getColumns()];
 		
 		nomcolumnas = new String[hoja1.getColumns()];
 
-		datos2 = new String[hoja1.getRows()][hoja1.getColumns()];
+		gramatica = new String[hoja1.getRows()][hoja1.getColumns()];
 
 		for (int fila = 0; fila < hoja1.getRows(); fila++) {
 			for (int columna = 0; columna < hoja1.getColumns(); columna++) {
 
-				datos2[fila][columna] = hoja1.getCell(columna, fila)
+				gramatica[fila][columna] = hoja1.getCell(columna, fila)
 						.getContents();
 
 				if (fila == 0) {
@@ -166,46 +167,32 @@ public class FileManager {
 			}
 		}
 		
-		return limpiarTabla(datos);
+		return clean(datos);
 
 	}
 	
-	private Object[][] limpiarTabla(Object[][] tabla){
-
-		ArrayList<Object[]> list = new ArrayList<Object[]>();
-
-		for (Object[] objects : tabla)
-			if( null != objects[0])
-				list.add(objects);
+	private String [][] clean(String [][] tableInput){
 		
-		Object[][] tabla2 = new Object[list.size()][list.get(0).length];
+		ArrayList<String[]> list = new ArrayList<String[]>();
+		for (String[] strings : tableInput)
+			if(null!=strings[0])
+				list.add(strings);
 		
-		for (int i = 0; i < list.size(); i++) {
-			for (int j = 0; j < list.get(i).length; j++) {
-				tabla2[i][j] = list.get(i)[j].toString();
-			}
-		}
+		String [][] tableOutput = new String[list.size()][list.get(0).length];
 		
-		return tabla2;
+		for (int i = 0; i < list.size(); i++)
+			for (int j = 0; j < list.get(i).length; j++)
+				tableOutput[i][j] = list.get(i)[j];
+		
+		return tableOutput;
 	}
-	
+			
 	public String [] getNomcolumnas() {
 		return nomcolumnas;
-	}	
+	}
+	
+	public String[][] getGramatica() {
+		return gramatica;
+	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
